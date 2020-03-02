@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -99,7 +101,7 @@ public class carsNavigation extends HttpServlet {
 				//prints results to console for testing purposes
 		        /*for(Cars c : carsListById) {
 		        	
-		        	Cars myCar = c.getSpider();
+		        	Cars myCar = c.getCar();
 		        	int myCarId = mySpider.getCarId();
 		            System.out.println("car ID: " + myCarId + " ; Year: " + c.getYear() + " ; Make: " + c.getMake() + " ; Model: " + c.getModel());
 		        }*/

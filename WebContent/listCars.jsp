@@ -5,10 +5,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>T keeper</title>
+<title>Car list</title>
 </head>
 <body>
-<form method = "post" action = "navigationServlet">
+<form method = "post" action = "carsNavigation">
 <table>
 <c:forEach items="${requestScope.allcars}" var="currentcar">
 <tr>

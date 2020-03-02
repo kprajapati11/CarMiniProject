@@ -42,32 +42,32 @@ INSERT INTO `cars` VALUES (1,2012,'HONDA','RACECAR'),(2,2012,'HONDA','RACECAR'),
 UNLOCK TABLES;
 
 --
--- Table structure for table `oilchanges`
+-- Table structure for table `servicing`
 --
 
-DROP TABLE IF EXISTS `oilchanges`;
+DROP TABLE IF EXISTS `servicing`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `oilchanges` (
-  `OILCHANGE_ID` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `servicing` (
+  `SERVICING_ID` int NOT NULL AUTO_INCREMENT,
   `CAR_ID` int NOT NULL,
-  `OILCHANGE_DATE` date NOT NULL,
-  `STATE` char(2) DEFAULT NULL,
-  `VEHICAL_MILEAGE` int DEFAULT NULL,
-  PRIMARY KEY (`OILCHANGE_ID`),
+  `SERVICING_DATE` date NOT NULL,
+  `SERVICING_DESCRIPTION` varchar(750) DEFAULT NULL,
+  `VEHICAL_MILAGE` int DEFAULT NULL,
+  PRIMARY KEY (`SERVICING_ID`),
   KEY `CAR_ID` (`CAR_ID`),
-  CONSTRAINT `oilchanges_ibfk_1` FOREIGN KEY (`CAR_ID`) REFERENCES `cars` (`CAR_ID`) ON DELETE CASCADE
+  CONSTRAINT `servicing_ibfk_1` FOREIGN KEY (`CAR_ID`) REFERENCES `cars` (`CAR_ID`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `oilchanges`
+-- Dumping data for table `servicing`
 --
 
-LOCK TABLES `oilchanges` WRITE;
-/*!40000 ALTER TABLE `oilchanges` DISABLE KEYS */;
-INSERT INTO `oilchanges` VALUES (1,1,'2020-01-01','IA',1000000000);
-/*!40000 ALTER TABLE `oilchanges` ENABLE KEYS */;
+LOCK TABLES `servicing` WRITE;
+/*!40000 ALTER TABLE `servicing` DISABLE KEYS */;
+INSERT INTO `servicing` VALUES (1,1,'2020-01-01','Oil change',1500300);
+/*!40000 ALTER TABLE `servicing` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -79,4 +79,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-02-28 22:18:09
+-- Dump completed on 2020-03-01 19:16:52

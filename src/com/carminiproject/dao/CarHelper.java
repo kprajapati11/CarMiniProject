@@ -26,7 +26,8 @@ public class CarHelper {
 
 	public List<Cars> showAllCars(){
 		EntityManager em = emFactory.createEntityManager();
-		List<Cars> allCars = em.createQuery("SELECT c FROM Cars c").getResultList();
+		@SuppressWarnings("unchecked")
+		List<Cars> allCars = em.createQuery("SELECT i FROM Cars i").getResultList();
 		return allCars;
 	}
 

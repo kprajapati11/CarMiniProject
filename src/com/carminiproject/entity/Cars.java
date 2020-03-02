@@ -42,6 +42,14 @@ public class Cars implements Serializable{
 		this.make = make;
 		this.model = model;
 	}
+	//This constructor was added by eluong
+	public Cars(String make, String model) {
+		super();
+	
+		this.make = make;
+		this.model = model;
+	}
+	
 	
 
 	public int getCarId() {

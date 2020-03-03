@@ -12,7 +12,7 @@
 year: <input type ="text" name = "year" value= "${carToEdit.year}">
 make: <input type = "text" name = "make" value= "${carToEdit.make}">
 model: <input type = "text" name = "model" value= "${carToEdit.model}">
-<input type = "hidden" name = "id" value="${spiderToEdit.id}">
+<input type = "hidden" name = "id" value="${carToEdit.carId}">
 <input type = "submit" value="Save">
 </form>
 </body>

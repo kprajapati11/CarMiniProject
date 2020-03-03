@@ -48,17 +48,19 @@ public class CarHelper {
 	public void updateCars(Cars editCar) {
 		EntityManager em = emFactory.createEntityManager();
 		em.getTransaction().begin();
+		em.merge(editCar);
+		em.getTransaction().commit();
+		em.close();
 
-		TypedQuery<Cars> typedQuery = em.createQuery("UPDATE Cars c SET c.year=:year , c.make=:make , c.model=:model where c.carId=:carId",Cars.class);
+		/*TypedQuery<Cars> typedQuery = em.createQuery("UPDATE Cars c SET c.year=:year , c.make=:make , c.model=:model where c.carId=:carId",Cars.class);
 		typedQuery.setParameter("carId", editCar.getCarId());
 		typedQuery.setParameter("year", editCar.getYear());
 		typedQuery.setParameter("make", editCar.getMake());
-		typedQuery.setParameter("model", editCar.getModel());
+		typedQuery.setParameter("model", editCar.getModel());*/
 		
 		
-		int rowUpdate = typedQuery.executeUpdate();
-		em.getTransaction().commit();
-		em.close();
+		//int rowUpdate = typedQuery.executeUpdate();
+
 	}
 
 	//delete

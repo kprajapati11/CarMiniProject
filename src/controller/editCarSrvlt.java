@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.carminiproject.dao.CarHelper;
+import com.carminiproject.entity.Cars;
+
 /**
  * Servlet implementation class editCarSrvlt
  */
@@ -28,7 +31,20 @@ public class editCarSrvlt extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		CarHelper crh = new CarHelper();
+		Integer year = Integer.parseInt(request.getParameter("year"));
+		String make = request.getParameter("make");
+		String model = request.getParameter("model");
+		Integer tempId = Integer.parseInt(request.getParameter("id"));
+		Cars carToUpdate = crh.searchForCarById(tempId);
+		carToUpdate.setYear(year);
+		carToUpdate.setMake(make);
+		carToUpdate.setModel(model);
+		crh.updateCars(carToUpdate);
+		getServletContext().getRequestDispatcher("/viewAllCarsSrvlt").forward(request, response);
+		
+		
+		
 	}
 
 }

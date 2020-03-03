@@ -82,6 +82,8 @@ public class carsNavigation extends HttpServlet {
 			
 		}
 		
+		//Kalpana can you please do this so that it searches for all servicing
+		//and passes to listServicingSrvlt.java?
 		else if (act.equals("view servicing"))
 		{
 			try {
@@ -93,16 +95,7 @@ public class carsNavigation extends HttpServlet {
 				//request.setAttribute("listToDisplay", carsListById);
 				//listServicing.jsp still needs to be created
 				path = "/listServicing.jsp";
-				//prints results to console for testing purposes
-		        /*for(Cars c : carsListById) {
-		        	
-		        	Cars myCar = c.getCar();
-		        	int myCarId = mySpider.getCarId();
-		            System.out.println("car ID: " + myCarId + " ; Year: " + c.getYear() + " ; Make: " + c.getMake() + " ; Model: " + c.getModel());
-		        }*/
-		        
-				
-				
+
 				} catch (Exception e) {
 				System.out.println("Forgot to select an item");
 				}

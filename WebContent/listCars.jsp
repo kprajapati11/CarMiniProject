@@ -8,6 +8,9 @@
 <title>Car list</title>
 </head>
 <body>
+<header> 
+	<h1>LISTING ALL CARS:</h1> 
+</header>
 <form method = "post" action = "carsNavigation">
 <table>
 <c:forEach items="${requestScope.allcars}" var="currentcar">

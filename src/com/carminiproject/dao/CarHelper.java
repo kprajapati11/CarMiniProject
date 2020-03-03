@@ -33,7 +33,8 @@ public class CarHelper {
 	//For update/edit ==> get the carId
 	public Cars searchForCarById(int idToEdit) {
 		EntityManager em = emFactory.createEntityManager();
-		TypedQuery<Cars> typedQuery = em.createQuery("SELECT c FROM CARS where c.getCardId=:selectedId", Cars.class);
+		em.getTransaction().begin();
+		TypedQuery<Cars> typedQuery = em.createQuery("SELECT c FROM Cars c where c.carId=:selectedId", Cars.class);
 		typedQuery.setParameter("selectedId", idToEdit);
 		typedQuery.setMaxResults(1);
 

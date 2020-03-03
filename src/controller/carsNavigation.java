@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.carminiproject.dao.CarHelper;
+import com.carminiproject.dao.ServicingHelper;
 import com.carminiproject.entity.Cars;
 
 /**
@@ -44,8 +45,7 @@ public class carsNavigation extends HttpServlet {
 			try
 			{
 			Integer tempId = Integer.parseInt(request.getParameter("id"));
-			//will need to implement searchById method for CarHelper
-			//Cars carToDelete =crh.searchById(tempId);
+			Cars carToDelete = crh.searchForCarById(tempId);
 			crh.deleteCar(carToDelete);
 			}
 			catch(Exception e)
@@ -56,12 +56,8 @@ public class carsNavigation extends HttpServlet {
 		else if (act.equals("edit")) {
 			try {
 				Integer tempId = Integer.parseInt(request.getParameter("id"));
-				//will need to implement searchById method for CarHelper
-				Cars carToEdit =crh.searchById(tempId);
-
+				Cars carToEdit =crh.searchForCarById(tempId);
 				request.setAttribute("carToEdit", carToEdit);
-				
-				
 				path = "/editCar.jsp";
 				} catch (Exception e) {
 				System.out.println("Forgot to select an item");
@@ -74,8 +70,7 @@ public class carsNavigation extends HttpServlet {
 			{
 			Cars newCar = new Cars( "", "");
 			crh.insertCar(newCar);
-			//need to implement searchById method for CarHelper
-			Cars carToEdit = crh.searchById(newCar.getCarId());
+			Cars carToEdit = crh.searchForCarById(newCar.getCarId());
 			request.setAttribute("carToEdit", carToEdit);
 			//editCar.jsp still needs to be created
 			path = "/editCar.jsp";
@@ -92,10 +87,10 @@ public class carsNavigation extends HttpServlet {
 			try {
 				Integer carId = Integer.parseInt(request.getParameter("id"));
 				
-				//servicing helper still needs to be created
-				List<Cars> carsListById = svh.searchById(carId);
+				//need to search for servicings by car ID
+				//List<Cars> carsListById = svh.searchForServicingById(carId);
 				request.setAttribute("carId", carId);			
-				request.setAttribute("listToDisplay", carsListById);
+				//request.setAttribute("listToDisplay", carsListById);
 				//listServicing.jsp still needs to be created
 				path = "/listServicing.jsp";
 				//prints results to console for testing purposes
@@ -115,4 +110,5 @@ public class carsNavigation extends HttpServlet {
 		} 
 		
 		getServletContext().getRequestDispatcher(path).forward(request,response);
+}
 }

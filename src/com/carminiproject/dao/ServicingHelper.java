@@ -27,6 +27,7 @@ public class ServicingHelper {
 	
 	public List<Servicing> showAllServicing(){
 		EntityManager em = emFactory.createEntityManager();
+		@SuppressWarnings("unchecked")
 		List<Servicing> allServicing = em.createQuery("SELECT s FROM Servicing s").getResultList();
 		return allServicing;
 	}

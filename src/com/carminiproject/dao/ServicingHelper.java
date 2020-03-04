@@ -1,5 +1,6 @@
 package com.carminiproject.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -56,7 +57,7 @@ public class ServicingHelper {
 		typedQuery.setParameter("servicingDescription", editServicing.getServicingDesc());
 		typedQuery.setParameter("vehicalMileage", editServicing.getMileage());				
 		
-		int rowUpdate = typedQuery.executeUpdate();
+		//int rowUpdate = typedQuery.executeUpdate();
 		em.getTransaction().commit();
 		em.close();
 	}
@@ -70,6 +71,25 @@ public class ServicingHelper {
 		em.getTransaction().commit();
 		em.close();
 	}
-
+	
+	public List<Servicing> searchByCarId (int carId)
+	{
+		EntityManager em = emFactory.createEntityManager();
+		em.getTransaction().begin();
+		int carID = carId;
+		List<Servicing> listByID=new ArrayList<Servicing>();
+		
+		for (Servicing s : showAllServicing())
+		{
+			Cars thisCar = s.getCar();
+			int carsID = thisCar.getCarId();
+			if (carsID == carID)
+			{
+				listByID.add(s);
+			}
+		} 
+		em.close();
+		return listByID;
+	}
 
 }

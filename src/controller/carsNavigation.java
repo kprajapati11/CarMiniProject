@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.carminiproject.dao.CarHelper;
 import com.carminiproject.dao.ServicingHelper;
 import com.carminiproject.entity.Cars;
+import com.carminiproject.entity.Servicing;
 
 /**
  * Servlet implementation class carsNavigation
@@ -89,11 +90,9 @@ public class carsNavigation extends HttpServlet {
 			try {
 				Integer carId = Integer.parseInt(request.getParameter("id"));
 				
-				//need to search for servicings by car ID
-				//List<Cars> carsListById = svh.searchForServicingById(carId);
+				List<Servicing> carListById = svh.searchByCarId(carId);
 				request.setAttribute("carId", carId);			
-				//request.setAttribute("listToDisplay", carsListById);
-				//listServicing.jsp still needs to be created
+				request.setAttribute("listToDisplay", carListById);
 				path = "/listServicing.jsp";
 
 				} catch (Exception e) {

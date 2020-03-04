@@ -1,5 +1,6 @@
 package com.carminiproject.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -27,7 +28,6 @@ public class ServicingHelper {
 	
 	public List<Servicing> showAllServicing(){
 		EntityManager em = emFactory.createEntityManager();
-		@SuppressWarnings("unchecked")
 		List<Servicing> allServicing = em.createQuery("SELECT s FROM Servicing s").getResultList();
 		return allServicing;
 	}
@@ -69,6 +69,23 @@ public class ServicingHelper {
 		em.remove(deleteServicing);
 		em.getTransaction().commit();
 		em.close();
+	}
+	
+	
+	public List<Servicing> showAllServicingForCar(Cars car){
+		List<Servicing> allServingList = showAllServicing();
+		List<Servicing> filterListForThisCar = new ArrayList<>();
+		for(Servicing s : allServingList) {
+			if(s.getCar().getCarId()==car.getCarId()) {
+				filterListForThisCar.add(s);
+			}
+		}
+		return filterListForThisCar;
+	}
+	
+	
+	public EntityManager getEntityManager() {
+		return emFactory.createEntityManager();
 	}
 
 

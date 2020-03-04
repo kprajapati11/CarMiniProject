@@ -1,6 +1,7 @@
-package controller;
+package com.carminiproject.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.carminiproject.dao.CarHelper;
 import com.carminiproject.dao.ServicingHelper;
 import com.carminiproject.entity.Cars;
+import com.carminiproject.entity.Servicing;
 
 /**
  * Servlet implementation class carsNavigation
@@ -82,17 +84,18 @@ public class carsNavigation extends HttpServlet {
 			
 		}
 		
-		//Kalpana can you please do this so that it searches for all servicing
-		//and passes to listServicingSrvlt.java?
 		else if (act.equals("view servicing"))
 		{
 			try {
 				Integer carId = Integer.parseInt(request.getParameter("id"));
 				
-				//need to search for servicings by car ID
-				//List<Cars> carsListById = svh.searchForServicingById(carId);
-				request.setAttribute("carId", carId);			
-				//request.setAttribute("listToDisplay", carsListById);
+				//find car for this carId
+				Cars car = crh.searchForCarById(carId);
+				
+				//we need all servicing info for this car
+				List<Servicing> servicingList = svh.showAllServicingForCar(car);
+				//request.setAttribute("carId", carId);			
+				request.setAttribute("listServicing", servicingList);
 				//listServicing.jsp still needs to be created
 				path = "/listServicing.jsp";
 
@@ -100,7 +103,49 @@ public class carsNavigation extends HttpServlet {
 				System.out.println("Forgot to select an item");
 				}
 			
-		} 
+		//Elizabeth, can you check why after successful edit servicing info is not displayed?	
+		}else if(act.equals("edit servicing")) {
+			System.out.println("edit servicing selected");
+			Integer servicingId = Integer.parseInt(request.getParameter("servicingId"));
+			Servicing editServicing = svh.getEntityManager().find(Servicing.class, servicingId);
+			
+			request.setAttribute("editServicing", editServicing);
+			path="/editServicing.jsp";
+			
+			
+			//delete is working
+		}else if(act.equals("delete servicing")) {
+			System.out.println("delete servicing selected");
+			try {
+				Integer servicingId = Integer.parseInt(request.getParameter("servicingId"));
+				Servicing entityToDelete = svh.getEntityManager().find(Servicing.class, servicingId);
+				svh.deleteServicing(entityToDelete);
+				path = "/listServicing.jsp";
+			}catch(Exception e) {
+				
+			}
+			
+			
+		// Elizabeth, can you check if this is working and try to fix this?	
+		}else if(act.equals("add servicing")) {
+			System.out.println("add servicing selected");
+			
+			
+			try
+			{
+			Servicing servicing = new Servicing();
+			Integer carId = Integer.parseInt(request.getParameter("carId"));
+			Cars car = svh.getEntityManager().find(Cars.class, carId);
+			//request.setAttribute("carToEdit", carToEdit);
+			//editCar.jsp still needs to be created
+			path = "/editCar.jsp";
+			}
+			catch (Exception e)
+			{
+				
+			}
+			
+		}
 		
 		getServletContext().getRequestDispatcher(path).forward(request,response);
 }

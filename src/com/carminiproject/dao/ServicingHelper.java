@@ -28,7 +28,6 @@ public class ServicingHelper {
 	
 	public List<Servicing> showAllServicing(){
 		EntityManager em = emFactory.createEntityManager();
-		@SuppressWarnings("unchecked")
 		List<Servicing> allServicing = em.createQuery("SELECT s FROM Servicing s").getResultList();
 		return allServicing;
 	}
@@ -72,6 +71,7 @@ public class ServicingHelper {
 		em.close();
 	}
 	
+<<<<<<< HEAD
 	public List<Servicing> searchByCarId (int carId)
 	{
 		EntityManager em = emFactory.createEntityManager();
@@ -91,5 +91,24 @@ public class ServicingHelper {
 		em.close();
 		return listByID;
 	}
+=======
+	
+	public List<Servicing> showAllServicingForCar(Cars car){
+		List<Servicing> allServingList = showAllServicing();
+		List<Servicing> filterListForThisCar = new ArrayList<>();
+		for(Servicing s : allServingList) {
+			if(s.getCar().getCarId()==car.getCarId()) {
+				filterListForThisCar.add(s);
+			}
+		}
+		return filterListForThisCar;
+	}
+	
+	
+	public EntityManager getEntityManager() {
+		return emFactory.createEntityManager();
+	}
+
+>>>>>>> upstream/master
 
 }

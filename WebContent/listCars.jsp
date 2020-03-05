@@ -22,9 +22,9 @@
 </tr>
 </c:forEach>
 </table>
-<input type = "submit" value = "edit" name="doThisToItem">
-<input type = "submit" value = "delete" name="doThisToItem">
-<input type="submit" value = "add" name = "doThisToItem">
+<input type = "submit" value = "edit car" name="doThisToItem">
+<input type = "submit" value = "delete car" name="doThisToItem">
+<input type="submit" value = "add car" name = "doThisToItem">
 <input type="submit" value = "view servicing" name = "doThisToItem">
 </form>
 </body>

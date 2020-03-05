@@ -19,10 +19,11 @@
 <td>${currentServicing.servicingDate}</td>
 <td>${currentServicing.servicingDesc}</td>
 <td>${currentServicing.mileage}</td>
-<td><input type="hidden" name="carId"  value="${currentServicing.car.carId}"/></td>
+
 <td>${currentServicing.car.carId} </td>
 </tr>
 </c:forEach>
+<input type="hidden" name="selectedCarId"  value="${selectedCar.carId}"/>
 </table>
 <input type = "submit" value = "edit servicing" name="doThisToItem">
 <input type = "submit" value = "delete servicing" name="doThisToItem">

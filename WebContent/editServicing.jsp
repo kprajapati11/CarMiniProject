@@ -13,7 +13,8 @@
 Date: <input type="text" name="month" placeholder="mm" size="4"> <input type="text" name="day" placeholder="dd" size="4">, <input type="text" name="year" placeholder="yyyy" size="4"> 
 Description: <input type = "text" name = "description" value= "${editServicing.servicingDesc}">
 Mileage: <input type = "text" name = "mileage" value= "${editServicing.mileage}">
-<input type = "hidden" name = "carId" value="${editServicing.car.carId}">
+
+<input type = "hidden" name = "carId" value="${carId}">
 <input type = "submit" value="Save">
 </form>
 </body>

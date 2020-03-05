@@ -28,35 +28,38 @@ public class ServicingHelper {
 	
 	public List<Servicing> showAllServicing(){
 		EntityManager em = emFactory.createEntityManager();
+		@SuppressWarnings("unchecked")
 		List<Servicing> allServicing = em.createQuery("SELECT s FROM Servicing s").getResultList();
 		return allServicing;
 	}
 	
 	
 	public Servicing searchForServicingById(int idToEdit) {
+		
 		EntityManager em = emFactory.createEntityManager();
-		TypedQuery<Servicing> typedQuery = em.createQuery("SELECT s FROM Servicing where s.getServicingId=:selectedId", Servicing.class);
+		em.getTransaction().begin();
+		Servicing foundById = em.find(Servicing.class, idToEdit);
+		em.close();
+		return foundById;
+		
+		/*
+		EntityManager em = emFactory.createEntityManager();
+		em.getTransaction().begin();
+		TypedQuery<Servicing> typedQuery = em.createQuery("SELECT s FROM Servicing where s.servicingId=:selectedId", Servicing.class);
 		typedQuery.setParameter("selectedId", idToEdit);
 		typedQuery.setMaxResults(1);
 
 		Servicing result = typedQuery.getSingleResult();
 		em.close();
 
-		return result;
+		return result; */
 	}
 
 	//For update/edit ==> to update
 	public void updateServicing(Servicing editServicing) {
 		EntityManager em = emFactory.createEntityManager();
 		em.getTransaction().begin();
-
-		TypedQuery<Servicing> typedQuery = em.createQuery("UPDATE Servicing s SET s.servicingDate=:servicingDate  , s.servicingDesc=:servicingDescription , s.mileage=:vehicalMileage where s.servicingId=:servicingId", Servicing.class);
-		typedQuery.setParameter("servicingId", editServicing.getServicingId());
-		typedQuery.setParameter("servicingDate", editServicing.getServicingDate());
-		typedQuery.setParameter("servicingDescription", editServicing.getServicingDesc());
-		typedQuery.setParameter("vehicalMileage", editServicing.getMileage());				
-		
-		//int rowUpdate = typedQuery.executeUpdate();
+		em.merge(editServicing);
 		em.getTransaction().commit();
 		em.close();
 	}
@@ -71,7 +74,7 @@ public class ServicingHelper {
 		em.close();
 	}
 	
-<<<<<<< HEAD
+
 	public List<Servicing> searchByCarId (int carId)
 	{
 		EntityManager em = emFactory.createEntityManager();
@@ -91,7 +94,7 @@ public class ServicingHelper {
 		em.close();
 		return listByID;
 	}
-=======
+
 	
 	public List<Servicing> showAllServicingForCar(Cars car){
 		List<Servicing> allServingList = showAllServicing();
@@ -109,6 +112,6 @@ public class ServicingHelper {
 		return emFactory.createEntityManager();
 	}
 
->>>>>>> upstream/master
+
 
 }

@@ -13,18 +13,16 @@
 </header>
 <form method = "post" action = "carsNavigation">
 <table>
-<c:forEach items="${listServicing}" var="currentServicing">
+<c:forEach items="${requestScope.listServicing}" var="currentServicing">
 <tr>
 <td><input type="radio" name="servicingId" value="${currentServicing.servicingId}"></td>
 <td>${currentServicing.servicingDate}</td>
 <td>${currentServicing.servicingDesc}</td>
 <td>${currentServicing.mileage}</td>
-
-<td>${currentServicing.car.carId} </td>
 </tr>
 </c:forEach>
-<input type="hidden" name="selectedCarId"  value="${selectedCar.carId}"/>
 </table>
+<input type = "hidden" name = "carId" value="${carId}">
 <input type = "submit" value = "edit servicing" name="doThisToItem">
 <input type = "submit" value = "delete servicing" name="doThisToItem">
 <input type="submit" value = "add servicing" name = "doThisToItem">

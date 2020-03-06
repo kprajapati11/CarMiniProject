@@ -1,7 +1,7 @@
 package com.carminiproject.controller;
 
 import java.io.IOException;
-import java.time.LocalDate;
+//import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -89,6 +89,11 @@ public class carsNavigation extends HttpServlet {
 			try {
 				Integer carId = Integer.parseInt(request.getParameter("id"));
 				
+
+				List<Servicing> carListById = svh.searchByCarId(carId);
+				request.setAttribute("carId", carId);			
+				request.setAttribute("listToDisplay", carListById);
+
 				//find car for this carId
 				Cars selectedCar = crh.searchForCarById(carId);
 				
@@ -98,6 +103,7 @@ public class carsNavigation extends HttpServlet {
 				request.setAttribute("listServicing", servicingList);
 				request.setAttribute("selectedCar", selectedCar);
 				//listServicing.jsp still needs to be created
+
 				path = "/listServicing.jsp";
 
 				} catch (Exception e) {
@@ -108,7 +114,7 @@ public class carsNavigation extends HttpServlet {
 		}else if(act.equals("edit servicing")) {
 			System.out.println("edit servicing selected");
 			Integer servicingId = Integer.parseInt(request.getParameter("servicingId"));
-			Servicing editServicing = svh.getEntityManager().find(Servicing.class, servicingId);
+			Servicing editServicing = svh.searchForServicingById(servicingId);
 			
 			request.setAttribute("editServicing", editServicing);
 			path="/editServicing.jsp";
@@ -121,7 +127,6 @@ public class carsNavigation extends HttpServlet {
 				Integer servicingId = Integer.parseInt(request.getParameter("servicingId"));
 				Servicing entityToDelete = svh.getEntityManager().find(Servicing.class, servicingId);
 				svh.deleteServicing(entityToDelete);
-				path = "/listServicing.jsp";
 			}catch(Exception e) {
 				
 			}
@@ -129,21 +134,23 @@ public class carsNavigation extends HttpServlet {
 			
 		// Elizabeth, can you check if this is working and try to fix this?	
 		}else if(act.equals("add servicing")) {
-			System.out.println("add servicing selected");
 			
-			
-			try {
-
-				Servicing servicing = new Servicing();
-				Integer carId = Integer.parseInt(request.getParameter("selectedCarId"));
-				Cars car = svh.getEntityManager().find(Cars.class, carId);
-
-				// request.setAttribute("carToEdit", carToEdit);
-				// editCar.jsp still needs to be created
+			Integer tempId = Integer.parseInt(request.getParameter("carId"));
+			Servicing addServicing = new Servicing (crh.searchForCarById(tempId));
+			try
+				{
+				
+				svh.insertServicing(addServicing);
+				request.setAttribute("editServicing", addServicing);
+				
 				path = "/editServicing.jsp";
-			} catch (Exception e) {
-
-			}
+				}
+			
+			catch (Exception e) 
+				
+				{
+				System.out.println("a car was not selected");
+				}
 			
 		}
 		

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.carminiproject.dao.ServicingHelper;
-import com.carminiproject.entity.Cars;
+//import com.carminiproject.entity.Cars;
 import com.carminiproject.entity.Servicing;
 
 /**
@@ -35,7 +35,47 @@ public class editServicingServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		
+		
+		
 		// TODO Auto-generated method stub
+		
+		
+		ServicingHelper svh = new ServicingHelper();
+		Integer tempId = Integer.parseInt(request.getParameter("servicingId"));
+		Servicing servicingToUpdate = svh.searchForServicingById(tempId);
+		LocalDate serviceDate = LocalDate.now();
+		String month = request.getParameter("month");
+		String day = request.getParameter("day");
+		String year = request.getParameter("year");
+		String description = request.getParameter("description");
+		Integer mileage = Integer.parseInt(request.getParameter("mileage"));
+		servicingToUpdate.setServicingDesc(description);
+		servicingToUpdate.setMileage(mileage);
+		
+		try
+		{
+		Integer serviceDay = Integer.parseInt(day);
+		Integer serviceMonth = Integer.parseInt(month);
+		Integer serviceYear = Integer.parseInt(year);
+		serviceDate = LocalDate.of(serviceYear, serviceMonth, serviceDay);
+		}
+		catch (Exception e)
+		{
+		
+		}
+		servicingToUpdate.setServicingDate(serviceDate);
+		svh.updateServicing(servicingToUpdate);
+		
+		getServletContext().getRequestDispatcher("/viewAllCarsSrvlt").forward(request, response);
+		
+		
+		
+		
+		
+		
+		/*
 		ServicingHelper servicingHelper = new ServicingHelper();
 		String month = request.getParameter("month");
 		String day = request.getParameter("day");
@@ -45,9 +85,12 @@ public class editServicingServlet extends HttpServlet {
 		Integer servicingId = Integer.parseInt(request.getParameter("servicingId"));
 
 		LocalDate servicingDate;
-		try {
+		try 
+		{
 			servicingDate = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
-		} catch (NumberFormatException ex) {
+		} 
+		catch (NumberFormatException ex) 
+		{
 			servicingDate = LocalDate.now();
 		}
 
@@ -56,8 +99,10 @@ public class editServicingServlet extends HttpServlet {
 		servicingToUpdate.setMileage(mileage);
 		servicingToUpdate.setServicingDate(servicingDate);
 		servicingHelper.updateServicing(servicingToUpdate);
+		
+		*/
 
-		getServletContext().getRequestDispatcher("/listServicing.jsp").forward(request, response);
+		
 
 	}
 

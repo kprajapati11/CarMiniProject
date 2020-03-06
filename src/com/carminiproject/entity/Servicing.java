@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,11 +36,21 @@ public class Servicing implements Serializable {
 	private int mileage;
 
 	
-	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="CAR_ID")
+	//@ManyToOne(cascade=CascadeType.PERSIST)
+	//@JoinColumn(name="CAR_ID")
+	@ManyToOne (cascade= {CascadeType.REFRESH} ,fetch = FetchType.LAZY)
+	@JoinColumn(name="CAR_ID",referencedColumnName="CAR_ID")
 	private Cars car;
 	
 	public Servicing() {
+
+	}
+	
+	public Servicing(Cars car) {
+		super();
+		this.car = car;
+		LocalDate todaysdate = LocalDate.now();
+		setServicingDate(todaysdate);
 
 	}
 
